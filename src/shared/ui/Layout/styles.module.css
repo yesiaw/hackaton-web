@@ -1,0 +1,25 @@
+.wrapper{
+    position: relative;
+    z-index: 1;
+    width: 100dvw;
+    height: 100svh;
+    overflow: hidden;
+}
+.container{
+    width: 100%;
+    height: 100%;
+}
+.header{
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding: 0;
+    background: white;
+    border-radius: 8px;
+}
+.content{
+    background: white;
+    border-radius: 8px;
+    margin: 16px;
+    padding: 16px;
+}

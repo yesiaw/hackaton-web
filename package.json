@@ -12,7 +12,10 @@
   "dependencies": {
     "@tanstack/react-query": "^5.40.0",
     "@tanstack/react-router": "^1.34.9",
+    "@xstate/store": "^0.0.5",
+    "antd": "^5.18.0",
     "axios": "^1.7.2",
+    "prettier": "^3.3.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "styled-components": "^6.1.11"
