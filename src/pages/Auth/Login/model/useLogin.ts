@@ -17,9 +17,10 @@ export const useLogin = () => {
     });
 
     const onError = (error: ErrorResponse) => {
+        const message = error?.response?.data?.error_message || 'Произошла ошибка';
         messageApi.open({
             type: 'error',
-            content: error.response.data.error_message || 'Произошла ошибка',
+            content: message,
         });
     };
 

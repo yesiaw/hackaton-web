@@ -3,7 +3,7 @@ import { LoginType } from '../../pages/Auth/Login/model/useLogin.ts';
 import { RegisterType } from '../../pages/Auth/Registration/model/useRegister.ts';
 import { requestInterceptor, responseInterceptor } from './helpers.ts';
 
-export const url = 'http://87.242.103.153:8000/api/v1';
+export const url = import.meta.env.VITE_API_URL;
 
 export const instance = axios.create({
     baseURL: url,
