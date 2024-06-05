@@ -1,17 +1,12 @@
-import { QueryClientProvider } from '@tanstack/react-query';
-import { queryClient, router } from './config';
+import { router } from './config';
 import { RouterProvider } from '@tanstack/react-router';
 import { useSelector } from '@xstate/store/react';
-import { appStore } from './model/appStore.ts';
+import { userStore } from '../entities/User/model/userStore.ts';
 
 const App = () => {
-    const isAuth = useSelector(appStore, (state) => state.context.isAuth);
+    const userId = useSelector(userStore, (state) => state.context.id);
 
-    return (
-        <QueryClientProvider client={queryClient}>
-            <RouterProvider router={router} context={{ isAuth }} />
-        </QueryClientProvider>
-    );
+    return <RouterProvider router={router} context={{ isAuth: Boolean(userId) }} />;
 };
 
 export default App;

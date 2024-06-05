@@ -4,17 +4,36 @@ import { useLayoutEffect } from 'react';
 import { Layout } from '../ui/Layout';
 import { AuthLayout } from '../ui/AuthLayout';
 import { useSelector } from '@xstate/store/react';
-import { appStore } from '../../app/model/appStore.ts';
+import { userStore } from '../../entities/User/model/userStore.ts';
+import { useUser } from '../../entities/User/model/useUser.ts';
+import { getToken } from '../api/helpers.ts';
+import { Skeleton } from 'antd';
 
 const AuthProvider = () => {
-    const isAuth = useSelector(appStore, (state) => state.context.isAuth);
+    const userId = useSelector(userStore, (state) => state.context.id);
+
+    const navigateToLogin = () => {
+        navigate({ to: PATH_ROUTES.login });
+    };
+    const { getUser, isPending } = useUser({ onError: navigateToLogin });
+
+    const isAuth = Boolean(userId);
 
     const navigate = useNavigate();
+
     useLayoutEffect(() => {
         if (!isAuth) {
-            navigate({ to: PATH_ROUTES.login });
+            if (getToken()) {
+                getUser();
+            } else {
+                navigateToLogin();
+            }
         }
     }, []);
+
+    if (isPending) {
+        return <Skeleton active />;
+    }
     if (isAuth) {
         return (
             <Layout>
