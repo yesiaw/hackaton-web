@@ -15,5 +15,10 @@ export type TokensResponse = {
 
 export type PARAMS_TYPE = {
     page: number;
-    size: number;
+    page_size: number;
+};
+
+export type PAGINATION_TYPE = {
+    current: number;
+    pageSize: number;
 };
