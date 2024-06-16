@@ -12,3 +12,8 @@ export type TokensResponse = {
     refresh_token: string;
     token_type: string;
 };
+
+export type PARAMS_TYPE = {
+    page: number;
+    size: number;
+};

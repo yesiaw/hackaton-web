@@ -6,6 +6,10 @@
 .title{
     margin: auto;
 }
+.subtitle{
+    color: #707070;
+    margin: auto auto 32px;
+}
 .action_container{
     display: flex;
     gap: 8px;

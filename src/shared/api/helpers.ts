@@ -25,7 +25,7 @@ export const requestInterceptor = (config: any) => {
     return config;
 };
 
-const logout = () => {
+export const logout = () => {
     localStorage.removeItem('token');
     localStorage.removeItem('refreshToken');
     location.reload();

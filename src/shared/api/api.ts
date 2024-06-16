@@ -2,6 +2,7 @@ import axios from 'axios';
 import { LoginType } from '../../pages/Auth/Login/model/useLogin.ts';
 import { RegisterType } from '../../pages/Auth/Registration/model/useRegister.ts';
 import { requestInterceptor, responseInterceptor } from './helpers.ts';
+import { PARAMS_TYPE } from './types.ts';
 
 export const url = import.meta.env.VITE_API_URL;
 
@@ -25,5 +26,8 @@ export default {
     },
     async getUser() {
         return instance.get('/users/me').then(({ data }) => data);
+    },
+    async getForecasting(params: PARAMS_TYPE) {
+        return instance.get('/predictions', { params }).then(({ data }) => data);
     },
 };

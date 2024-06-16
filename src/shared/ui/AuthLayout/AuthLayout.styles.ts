@@ -10,4 +10,7 @@ export const Container = styled.div`
     width: 100dvw;
     height: 100svh;
     overflow: hidden;
+
+    background: rgb(22, 119, 255);
+    background: linear-gradient(331deg, rgba(22, 119, 255, 1) 0%, rgba(255, 255, 255, 1) 100%);
 `;

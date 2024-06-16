@@ -9,11 +9,11 @@ export type UserType = {
 };
 
 const initialState: UserType = {
-    id: '',
-    email: '',
-    first_name: '',
-    last_name: '',
-    middle_name: '',
+    id: 'yesiaw6@gmail.com',
+    email: 'yesiaw6@gmail.com',
+    first_name: 'Александр',
+    last_name: 'Шальнев',
+    middle_name: 'Владимирович',
 };
 export const userStore = createStore(initialState, {
     setUser: {

@@ -1,6 +1,7 @@
 import { createRootRouteWithContext, createRoute, redirect } from '@tanstack/react-router';
 import { PATH_ROUTES } from './constants.ts';
-import { Home } from '../../pages/Home';
+import { Forecasting } from '../../pages/Forecasting';
+import { Reaction } from '../../pages/Reaction';
 import { Login } from '../../pages/Auth/Login';
 import { Registration } from '../../pages/Auth/Registration';
 import AuthProvider from '../components/AuthProvider.tsx';
@@ -39,13 +40,42 @@ const registerRoute = createRoute({
 const anyRoute = createRoute({
     getParentRoute: () => rootRoute,
     path: PATH_ROUTES.anyPath,
-    component: Home,
+    beforeLoad: () => {
+        throw redirect({
+            to: PATH_ROUTES.forecasting,
+        });
+    },
+    component: Forecasting,
 });
 
-const homeRoute = createRoute({
+const emptyPath = createRoute({
     getParentRoute: () => rootRoute,
-    path: PATH_ROUTES.home,
-    component: Home,
+    path: PATH_ROUTES.emptyPath,
+    beforeLoad: () => {
+        throw redirect({
+            to: PATH_ROUTES.forecasting,
+        });
+    },
+    component: Forecasting,
 });
 
-export const routeTree = rootRoute.addChildren([loginRoute, registerRoute, anyRoute, homeRoute]);
+const forecastingRoute = createRoute({
+    getParentRoute: () => rootRoute,
+    path: PATH_ROUTES.forecasting,
+    component: Forecasting,
+});
+
+const reactionRoute = createRoute({
+    getParentRoute: () => rootRoute,
+    path: PATH_ROUTES.reaction,
+    component: Reaction,
+});
+
+export const routeTree = rootRoute.addChildren([
+    loginRoute,
+    registerRoute,
+    anyRoute,
+    forecastingRoute,
+    reactionRoute,
+    emptyPath,
+]);

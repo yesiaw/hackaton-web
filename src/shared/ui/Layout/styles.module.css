@@ -22,4 +22,45 @@
     border-radius: 8px;
     margin: 16px;
     padding: 16px;
+    overflow: auto;
+}
+.slider > div{
+    display: flex;
+    flex-direction: column;
+}
+.user_container{
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin: 4px 4px 32px;
+    padding: 16px;
+    color: white;
+    border-radius: 8px;
+
+    .user_img{
+        border-radius: 50%;
+        overflow: hidden;
+    }
+}
+.menu_container{
+    width: 100%;
+    display: flex;
+    flex-grow: 1;
+    flex-direction: column;
+    justify-content: space-between;
+}
+.footer_container{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    color: rgba(255, 255, 255, 0.65);
+
+    .user_fio{
+        padding: 8px;
+    }
+}
+.logout_button{
+    width: auto !important;
+    flex-grow: 1;
+    margin: 4px;
 }

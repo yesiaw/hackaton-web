@@ -20,10 +20,11 @@ const Login: React.FC = () => {
         <>
             {contextHolder}
             <div className={cx('container')}>
-                <p className={cx('title')}>Вход</p>
+                <h1 className={cx('title')}>Авторизация</h1>
+                <h5 className={cx('subtitle')}>Войдите в свой аккаунт, что бы продолжить</h5>
                 <Form layout="vertical" onFinish={onFinish} autoComplete="on">
                     <Form.Item
-                        label="Имя пользователя"
+                        label="Email"
                         name="email"
                         rules={[{ required: true, message: 'Это обязательное поле!' }]}
                     >

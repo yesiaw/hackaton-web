@@ -18,7 +18,7 @@ const Login: React.FC = () => {
     return (
         <div className={cx('container')}>
             {contextHolder}
-            <p className={cx('title')}>Регистрация</p>
+            <h1 className={cx('title')}>Регистрация</h1>
             <Form layout="vertical" onFinish={onFinish} autoComplete="on">
                 <Form.Item
                     label="Имя"

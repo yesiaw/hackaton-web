@@ -1,0 +1,12 @@
+.container{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    gap: 32px;
+}
+.upload_container{
+    width: 100%;
+}
+.dragger > div {
+    height: auto !important;
+}
