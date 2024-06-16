@@ -29,6 +29,7 @@ const AppLayout = ({ children }: { children: React.ReactNode }) => {
     };
 
     const activePath = location.pathname;
+    console.log(activePath);
 
     return (
         <div className={cx('wrapper')}>
@@ -47,6 +48,7 @@ const AppLayout = ({ children }: { children: React.ReactNode }) => {
                         <Menu
                             theme="dark"
                             mode="inline"
+                            selectedKeys={[activePath]}
                             defaultSelectedKeys={[activePath]}
                             onSelect={onChangeMenu}
                             items={[

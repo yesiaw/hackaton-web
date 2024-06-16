@@ -16,6 +16,8 @@ export type TokensResponse = {
 export type PARAMS_TYPE = {
     page: number;
     page_size: number;
+    address: string;
+    area: string;
 };
 
 export type PAGINATION_TYPE = {

@@ -1,13 +1,20 @@
-import React, { useRef, useState } from 'react';
-import { Button, Table } from 'antd';
+import React, { useEffect, useRef, useState } from 'react';
+import { Button, Input, Select, Table } from 'antd';
 import { useForecasting } from '../../../../entities/Forecasting/model/useForecasting.ts';
 import { PAGINATION_TYPE } from '../../../../shared/api/types.ts';
 import {
     convertToRowKeys,
     generateTableData,
+    getAreasData,
 } from '../../../../entities/Forecasting/lib/helpers.ts';
 import { ModalContent } from '../ModalContent';
 import { columns } from '../../config/constants.ts';
+import classNames from 'classnames/bind';
+import style from './styles.module.css';
+
+const cx = classNames.bind(style);
+
+const { Search } = Input;
 
 const ForecastingTable: React.FC = () => {
     const totalElements = useRef(0);
@@ -16,7 +23,9 @@ const ForecastingTable: React.FC = () => {
         current: 1,
         pageSize: 30,
     });
+    const [area, setArea] = useState('');
     const [selectedRow, setSelectedRow] = useState<Map<any, any>>(new Map());
+    const [search, setSearch] = useState('');
     const selectedRowKeys = convertToRowKeys(selectedRow);
 
     const {
@@ -24,9 +33,11 @@ const ForecastingTable: React.FC = () => {
         isFetching,
         isSuccess,
     } = useForecasting({
-        queryKeys: [pagination.current],
-        params: pagination,
+        queryKeys: [pagination.current, area, search],
+        params: { ...pagination, search, area },
     });
+
+    const areasData = getAreasData(data?.metadata.available_areas || []);
 
     if (isSuccess) {
         totalElements.current = data.count;
@@ -74,8 +85,12 @@ const ForecastingTable: React.FC = () => {
     };
     const hasSelected = selectedRowKeys.length > 0;
 
+    useEffect(() => {
+        setSelectedRow(new Map());
+    }, [data]);
+
     return (
-        <div>
+        <div className={cx('table_container')}>
             <div style={{ marginBottom: 16 }}>
                 <Button type="primary" onClick={onOpenModal} disabled={!hasSelected}>
                     Показать на карте
@@ -84,6 +99,20 @@ const ForecastingTable: React.FC = () => {
                     {hasSelected ? `Выбрано ${selectedRowKeys.length}` : ''}
                 </span>
             </div>
+            <div className={cx('actions_container')}>
+                <Search
+                    placeholder="Поиск по адресу"
+                    onSearch={(value) => setSearch(value)}
+                    className={cx('input')}
+                />
+                <Select
+                    showSearch
+                    placeholder="Фильтр по округам"
+                    onChange={setArea}
+                    options={areasData}
+                    className={cx('select')}
+                />
+            </div>
             <Table
                 pagination={{ ...pagination, total: totalElements.current, showSizeChanger: false }}
                 onChange={onChangePage}
@@ -91,6 +120,8 @@ const ForecastingTable: React.FC = () => {
                 columns={columns}
                 dataSource={generateTableData(data?.data || [])}
                 loading={isFetching}
+                className={cx('table')}
+                sticky
             />
             <ModalContent open={modal} closeModal={onCloseModal} />
         </div>

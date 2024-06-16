@@ -5,7 +5,7 @@ import { Button, Select } from 'antd';
 
 const cx = classNames.bind(style);
 
-const DatabaseCard = () => {
+const DatabaseCard = ({ onChange }: { onChange: VoidFunction }) => {
     return (
         <div className={cx('container')}>
             <div className={cx('icon_container')}>
@@ -40,7 +40,9 @@ const DatabaseCard = () => {
                         },
                     ]}
                 />
-                <Button className={cx('open_button')}>Открыть прогноз</Button>
+                <Button className={cx('open_button')} onClick={onChange}>
+                    Открыть прогноз
+                </Button>
             </div>
         </div>
     );

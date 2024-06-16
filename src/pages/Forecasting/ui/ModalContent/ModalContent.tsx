@@ -17,7 +17,7 @@ const ComponentResize = () => {
 };
 
 const ModalContent = ({ open, closeModal }: { open: any; closeModal: VoidFunction }) => {
-    const modalData = Array.from(open || []) as Prediction[];
+    const modalData = Array.from(open || []) as [string, Prediction][];
 
     return (
         <Modal
@@ -45,7 +45,7 @@ const ModalContent = ({ open, closeModal }: { open: any; closeModal: VoidFunctio
                             Number(el.coordinates.longitude),
                             Number(el.coordinates.latitude),
                         ]}
-                        key={el.id}
+                        key={el.id + key}
                     >
                         <Popup>
                             <div className={cx('popup_container')}>

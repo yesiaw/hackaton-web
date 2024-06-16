@@ -9,12 +9,16 @@ export type PredictionResponse = {
     pages_count: number;
     count: number;
     data: Prediction[];
+    metadata: {
+        available_areas: string[];
+    };
 };
 
 export type Prediction = {
     id: number;
     unom: number;
     district: string;
+    address: string;
     building_material: string;
     building_assignment: string;
     building_total_area: number;
@@ -62,11 +66,17 @@ export const useForecasting = ({
     options = {},
 }: {
     queryKeys?: any[];
-    params: PAGINATION_TYPE;
+    params: PAGINATION_TYPE & { search: string; area: string };
     options?: {};
 }) =>
     useQuery<PredictionResponse>({
         queryKey: [FORECASTING_KEY, ...queryKeys],
-        queryFn: () => api.getForecasting({ page: params.current, page_size: params.pageSize }),
+        queryFn: () =>
+            api.getForecasting({
+                page: params.current,
+                page_size: params.pageSize,
+                address: params.search,
+                area: params.area,
+            }),
         ...options,
     });

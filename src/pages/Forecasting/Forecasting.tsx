@@ -4,14 +4,16 @@ import style from './styles.module.css';
 import { DatabaseCard } from './ui/DatabaseCard';
 import { UploadCard } from './ui/UploadCard';
 import { ForecastingTable } from './ui/Table';
+import { useState } from 'react';
 const cx = classNames.bind(style);
 
 const Forecasting = () => {
+    const [visible, setVisible] = useState(false);
     return (
         <div className={cx('container')}>
-            <DatabaseCard />
             <UploadCard />
-            <ForecastingTable />
+            <DatabaseCard onChange={() => setVisible(true)} />
+            {visible && <ForecastingTable />}
         </div>
     );
 };
