@@ -5,7 +5,7 @@
 }
 .table{
     > div > div > div {
-        height: 70vh;
+        height: 65vh;
         overflow: auto;
     }
 }

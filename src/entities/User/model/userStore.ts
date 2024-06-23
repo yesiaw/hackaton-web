@@ -9,7 +9,7 @@ export type UserType = {
 };
 
 const initialState: UserType = {
-    id: '',
+    id: '123',
     email: 'yesiaw6@gmail.com',
     first_name: 'Александр',
     last_name: 'Шальнев',

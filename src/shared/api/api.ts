@@ -28,7 +28,9 @@ export default {
         return instance.get('/users/me').then(({ data }) => data);
     },
     async getForecasting(params: PARAMS_TYPE) {
-        console.log(params);
         return instance.get('/predictions', { params }).then(({ data }) => data);
+    },
+    async getReaction(params: any) {
+        return instance.get('/reactions', { params }).then(({ data }) => data);
     },
 };
