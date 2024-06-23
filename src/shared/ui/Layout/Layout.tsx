@@ -41,6 +41,10 @@ const AppLayout = ({ children }: { children: React.ReactNode }) => {
 
     useEffect(() => {
         getWeather();
+
+        setInterval(() => {
+            getWeather();
+        }, 60_000 * 1000);
     }, []);
 
     return (

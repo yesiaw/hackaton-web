@@ -24,10 +24,10 @@ const ModalContent = ({
     open: ReactionType[] | null;
     closeModal: VoidFunction;
 }) => {
-    const [lat, long] = JSON.parse(open?.[0]?.geodata_center_y || '[]');
+    const [lat, long] = JSON.parse(open?.[0]?.geodata_center_y || '[0,0]');
     const TEC = open?.[0].heat_supply_source;
     // @ts-ignore
-    const getMarkers = (markers: [a: number, b: number]) => markers.map(([a, b]) => [b, a]);
+    const getMarkers = (markers: [a: number, b: number]) => markers?.map(([a, b]) => [b, a]);
 
     const redOptions = { color: 'red' };
 
@@ -52,12 +52,14 @@ const ModalContent = ({
                 <ComponentResize coord={[lat, long]} />
                 <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
                 {open &&
-                    open.map((el) => (
-                        <Polygon
-                            pathOptions={redOptions}
-                            positions={getMarkers(JSON.parse(el.geodata_y))}
-                        />
-                    ))}
+                    open.map((el, i) => {
+                        const positions = getMarkers(JSON.parse(el.geodata_y || 'null'));
+                        if (positions) {
+                            return (
+                                <Polygon key={i} pathOptions={redOptions} positions={positions} />
+                            );
+                        }
+                    })}
             </MapContainer>
         </Modal>
     );
