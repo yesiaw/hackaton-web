@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import {
     MenuFoldOutlined,
     MenuUnfoldOutlined,
@@ -6,7 +6,7 @@ import {
     AlertOutlined,
     LogoutOutlined,
 } from '@ant-design/icons';
-import { Button, Layout, Menu } from 'antd';
+import { Button, Layout, Menu, Spin } from 'antd';
 import style from './styles.module.css';
 import classNames from 'classnames/bind';
 import { PATH_NAMES, PATH_ROUTES, PathValueType } from '../../routes/constants.ts';
@@ -20,6 +20,7 @@ const cx = classNames.bind(style);
 const { Header, Sider, Content } = Layout;
 
 const AppLayout = ({ children }: { children: React.ReactNode }) => {
+    const [temperature, setTemperature] = useState<string | number>('loading');
     const { first_name, last_name, middle_name } = useSelector(userStore, (state) => state.context);
     const navigate = useNavigate();
     const [collapsed, setCollapsed] = useState(false);
@@ -29,7 +30,18 @@ const AppLayout = ({ children }: { children: React.ReactNode }) => {
     };
 
     const activePath = location.pathname;
-    console.log(activePath);
+
+    const getWeather = () => {
+        fetch(
+            'https://api.open-meteo.com/v1/forecast?latitude=55.788&longitude=37.779&current=temperature_2m'
+        )
+            .then((response) => response.json())
+            .then((json) => setTemperature(json?.current?.temperature_2m || 0));
+    };
+
+    useEffect(() => {
+        getWeather();
+    }, []);
 
     return (
         <div className={cx('wrapper')}>
@@ -86,17 +98,25 @@ const AppLayout = ({ children }: { children: React.ReactNode }) => {
                 </Sider>
                 <Layout>
                     <Header className={cx('header')}>
-                        <Button
-                            type="text"
-                            icon={collapsed ? <MenuUnfoldOutlined /> : <MenuFoldOutlined />}
-                            onClick={() => setCollapsed(!collapsed)}
-                            style={{
-                                fontSize: '16px',
-                                width: 64,
-                                height: 64,
-                            }}
-                        />
-                        <h3>{PATH_NAMES[activePath as PathValueType]}</h3>
+                        <div className={cx('header_content')}>
+                            <Button
+                                type="text"
+                                icon={collapsed ? <MenuUnfoldOutlined /> : <MenuFoldOutlined />}
+                                onClick={() => setCollapsed(!collapsed)}
+                                style={{
+                                    fontSize: '16px',
+                                    width: 64,
+                                    height: 64,
+                                }}
+                            />
+                            <h3>{PATH_NAMES[activePath as PathValueType]}</h3>
+                        </div>
+
+                        <h5 className={cx('weather_container')}>
+                            Температура в Москве:{' '}
+                            {temperature === 'loading' ? <Spin /> : temperature}
+                            °C
+                        </h5>
                     </Header>
                     <Content className={cx('content')}>{children}</Content>
                 </Layout>

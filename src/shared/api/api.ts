@@ -30,7 +30,4 @@ export default {
     async getForecasting(params: PARAMS_TYPE) {
         return instance.get('/predictions', { params }).then(({ data }) => data);
     },
-    async getReaction(params: any) {
-        return instance.get('/reactions', { params }).then(({ data }) => data);
-    },
 };

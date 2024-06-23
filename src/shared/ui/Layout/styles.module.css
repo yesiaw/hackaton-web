@@ -12,10 +12,15 @@
 .header{
     display: flex;
     align-items: center;
+    justify-content: space-between;
     gap: 16px;
-    padding: 0;
     background: white;
     border-radius: 8px;
+    padding: 16px;
+}
+.header_content{
+    display: flex;
+    align-items: center;
 }
 .content{
     background: white;
@@ -63,4 +68,9 @@
     width: auto !important;
     flex-grow: 1;
     margin: 4px;
+}
+.weather_container{
+    display: flex;
+    align-items: center;
+    gap: 8px;
 }

@@ -1,4 +1,4 @@
-import React, { useMemo, useState } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import { Button, Input, Select, Table } from 'antd';
 import classNames from 'classnames/bind';
 import style from './styles.module.css';
@@ -34,10 +34,14 @@ const ForecastingTable: React.FC = () => {
         setOpenModal(null);
     };
 
+    useEffect(() => {
+        setSelected(null);
+    }, [filteredData]);
+
     return (
         <div className={cx('table_container')}>
             <div style={{ marginBottom: 16, marginTop: 16 }}>
-                <Button type="primary" onClick={onOpenModal} disabled={!selected}>
+                <Button type="primary" onClick={onOpenModal} disabled={!selected?.length}>
                     Показать на карте
                 </Button>
             </div>

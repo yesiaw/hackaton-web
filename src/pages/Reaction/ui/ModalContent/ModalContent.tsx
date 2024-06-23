@@ -46,7 +46,7 @@ const ModalContent = ({
             <MapContainer
                 style={{ height: 536 }}
                 center={[long, lat]}
-                zoom={20}
+                zoom={15}
                 attributionControl={false}
             >
                 <ComponentResize coord={[lat, long]} />
