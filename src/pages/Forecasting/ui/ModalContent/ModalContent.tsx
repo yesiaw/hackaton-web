@@ -18,6 +18,10 @@ const ComponentResize = () => {
 
 const ModalContent = ({ open, closeModal }: { open: any; closeModal: VoidFunction }) => {
     const modalData = Array.from(open || []) as [string, Prediction][];
+    const { latitude, longitude } = modalData?.[0]?.[1].coordinates || {
+        longitude: 55.7522,
+        latitude: 37.6156,
+    };
 
     return (
         <Modal
@@ -32,7 +36,7 @@ const ModalContent = ({ open, closeModal }: { open: any; closeModal: VoidFunctio
         >
             <MapContainer
                 style={{ height: 536 }}
-                center={[55.7522, 37.6156]}
+                center={[Number(longitude), Number(latitude)]}
                 zoom={13}
                 attributionControl={false}
             >

@@ -36,8 +36,11 @@ const ForecastingTable: React.FC = () => {
         queryKeys: [pagination.current, area, search],
         params: { ...pagination, search, area },
     });
+    const areasData = useRef<null | any[]>(null);
 
-    const areasData = getAreasData(data?.metadata.available_areas || []);
+    if (!areasData.current) {
+        areasData.current = getAreasData(data?.metadata?.available_areas || []);
+    }
 
     if (isSuccess) {
         totalElements.current = data.count;
@@ -109,7 +112,7 @@ const ForecastingTable: React.FC = () => {
                     showSearch
                     placeholder="Фильтр по округам"
                     onChange={setArea}
-                    options={areasData}
+                    options={areasData.current}
                     className={cx('select')}
                 />
             </div>
